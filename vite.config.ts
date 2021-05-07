@@ -54,8 +54,8 @@ export default defineConfig({
     server: {
         port: 3000,
         proxy: {
-            '/imgSource': {
-                target: 'https://t7.baidu.com',
+            '/api': {
+                target: '',
                 changeOrigin: true,
                 rewrite: (path) => path.replace(/^\/api/, '')
             },
@@ -63,7 +63,7 @@ export default defineConfig({
     },
     base: './',
     build: {
-        target: 'es2015',
+        target: 'ES2015',
         outDir: 'dist',
         sourcemap: false,
         manifest: true,

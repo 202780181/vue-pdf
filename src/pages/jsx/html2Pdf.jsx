@@ -13,7 +13,7 @@ export const foobar = defineComponent({
     const printHtml = () => {
       count.value++;
       if(import.meta.env.MODE == "development") {
-        instance.ctx.getPdf(document.querySelector('.pdfDom'))
+        instance.ctx.getPdf()
       } else {
         instance.appContext.config.globalProperties.getPdf(document.querySelector('.pdfDom'))
       }

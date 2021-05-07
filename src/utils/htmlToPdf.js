@@ -6,7 +6,7 @@ export default {
      * 兼容 vue 2.x/3.x
 		 * app 3.0 不能访问 prototype
 		 * config 是一个包含了 app 应用全局配置的对象。你可以在应用挂载前修改其以下 property
-		 * app.config = {...}
+		 * app.config = {...}`
 		 * https://www.vue3js.cn/docs/zh/api/application-config.html#globalproperties
 		 */
 
@@ -15,13 +15,18 @@ export default {
     } else {
       app.prototype.getPdf = getPdf
     }
-		function getPdf() {
+		function getPdf(el) {
       var title = this.htmlTitle || 'download'
-      if (!document.querySelector('.pdfDom')) {
-        throw Error('无法获取到`.pdfDom`元素!')
-        return false
+      if (!el) {
+				console.log(
+					`%c 警告: %c 无法获取到指定元素,将从body节点开始打印 %c`,
+					'background:#35495e ; padding: 1px; border-radius: 3px 0 0 3px;  color: yellow',
+					'background:#41b883 ; padding: 1px; border-radius: 0 3px 3px 0;  color: #fff',
+					'background:transparent'
+				)
+        el = document.querySelector('body')
       }
-      var pdfDom = document.querySelector('.pdfDom')
+      var pdfDom = el
       var width = pdfDom.clientWidth; //dom宽
       var height = pdfDom.clientHeight; //dom高
       var scale = 2; //放大倍数
@@ -31,7 +36,7 @@ export default {
         width: width,
         height: height,
         useCORS: true,
-        // allowTaint: true
+        allowTaint: true
       };
       var canvas = document.createElement("canvas")//创建一个canvas节点
       canvas.width = width * 2;
